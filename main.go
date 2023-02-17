@@ -8,7 +8,7 @@ import (
 
 func main() {
 	port := flag.Int("p", 8080, "port to listen on")
-	host := flag.String("h", "localhost", "host to listen on")
+	host := flag.String("h", "", "host to listen on")
 
 	flag.Parse()
 
