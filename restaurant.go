@@ -24,39 +24,12 @@ type Restaurants struct {
 
 func (r *Restaurants) Draw() *Restaurant {
 
-	//find restaurant with lowest nb_draws
-	var draw *Restaurant
-	randIndex := rand.Intn(len(r.restaurants))
-	maxDraw := 0
-	for i := 0; i < len(r.restaurants); i++ {
-		restaurant := r.restaurants[i]
-		if restaurant.NbDraws > maxDraw {
-			maxDraw = restaurant.NbDraws
-		}
+	if len(r.restaurants) == 0 {
+		return &Restaurant{"Aucun restaurant disponible", 0}
 	}
 
-	if maxDraw == 0 {
-		draw = r.restaurants[randIndex]
-	} else {
-		var candidates []*Restaurant
-		//find restaurant with lowest nb_draws
-		for i := 0; i < len(r.restaurants); i++ {
-			restaurant := r.restaurants[i]
-			if restaurant.NbDraws < maxDraw {
-				candidates = append(candidates, restaurant)
-			}
-		}
+	draw := r.restaurants[rand.Intn(len(r.restaurants))]
 
-		if len(candidates) == 0 {
-			draw = r.restaurants[randIndex]
-		} else {
-			randIndex = rand.Intn(len(candidates))
-			draw = candidates[randIndex]
-		}
-
-	}
-
-	//increment nb_draws
 	draw.NbDraws++
 
 	//save to json file
